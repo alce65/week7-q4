@@ -1,14 +1,14 @@
 import { Router as createRouter } from 'express';
 import { NotesController } from '../controllers/notes.controller.js';
 import createDebug from 'debug';
-import { NotesFileRepo } from '../repos/notes.file.repo.js';
+import { NotesMongoRepo } from '../repos/notes.mongo.repo.js';
 
 const debug = createDebug('W7E:notes:router');
 
 export const notesRouter = createRouter();
 debug('Starting');
 
-const repo = new NotesFileRepo();
+const repo = new NotesMongoRepo();
 const controller = new NotesController(repo);
 
 notesRouter.get('/', controller.getAll.bind(controller));
