@@ -28,5 +28,3 @@ notesSchema.set('toJSON', {
 });
 
 export const NoteModel = model('Note', notesSchema, 'notes');
-
-NoteModel.insertMany([{}, {}, {}]);
