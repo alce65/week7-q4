@@ -11,7 +11,7 @@ export class TasksFileRepo implements Repository<Task> {
   tasks: Task[];
   constructor() {
     debug('Instantiated');
-    this.file = './data/data.json';
+    this.file = './data/tasks.json';
     this.tasks = [];
     this.loadData();
   }

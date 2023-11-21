@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 
 import createDebug from 'debug';
 import { Repository } from '../repos/repo';
-import { Task } from '../entities/task';
+import { Note } from '../entities/note';
 
-const debug = createDebug('W7E:tasks:controller');
+const debug = createDebug('W7E:notes:controller');
 
-export class TasksController {
+export class NotesController {
   // eslint-disable-next-line no-unused-vars
-  constructor(private repo: Repository<Task>) {
+  constructor(private repo: Repository<Note>) {
     debug('Instantiated');
   }
 
@@ -35,13 +35,9 @@ export class TasksController {
     res.json(result);
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.update(req.params.id, req.body);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
+  async update(req: Request, res: Response) {
+    const result = await this.repo.update(req.params.id, req.body);
+    res.json(result);
   }
 
   async delete(req: Request, res: Response, next: NextFunction) {

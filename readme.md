@@ -56,3 +56,11 @@ npm i -D jest ts-jest @types/jest @types/node jest-ts-webcompat-resolver
 npm i express
 npm i -D @types/express
 ```
+
+## DataBase
+
+### Relational (SQL)
+
+### No Relational (NoSQL) - Documents
+
+- MongoDB (ODM: Mongoose)
