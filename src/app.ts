@@ -6,6 +6,7 @@ import { notesRouter } from './routers/notes.router.js';
 import createDebug from 'debug';
 
 import { errorMiddleware } from './middleware/error.middleware.js';
+import { usersRouter } from './routers/users.router.js';
 
 const debug = createDebug('W7E:app');
 
@@ -20,5 +21,6 @@ app.use(express.static('public'));
 
 app.use('/tasks', tasksRouter);
 app.use('/notes', notesRouter);
+app.use('/users', usersRouter);
 
 app.use(errorMiddleware);

@@ -64,3 +64,9 @@ npm i -D @types/express
 ### No Relational (NoSQL) - Documents
 
 - MongoDB (ODM: Mongoose)
+
+
+## Relaciones
+
+entity1---1-------n---entity2
+entity1---n-------n---entity2
