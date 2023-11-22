@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
-import { Task } from '../entities/task';
-import { Repository } from './repo';
-import { HttpError } from '../types/http.error.js';
+import { Task } from '../../entities/task';
+import { Repository } from '../repo';
+import { HttpError } from '../../types/http.error.js';
 import createDebug from 'debug';
 
 const debug = createDebug('W7E:tasks:file:repo');

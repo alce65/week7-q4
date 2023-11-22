@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { TasksController } from './tasks.controller';
-import { TasksFileRepo } from '../repos/tasks.file.repo';
+import { TasksFileRepo } from '../repos/tasks/tasks.file.repo';
 
 describe('Given TasksController class', () => {
   let controller: TasksController;

@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
-import { Note } from '../entities/note';
-import { Repository } from './repo';
-import { HttpError } from '../types/http.error.js';
+import { Note } from '../../entities/note';
+import { Repository } from '../repo';
+import { HttpError } from '../../types/http.error.js';
 import createDebug from 'debug';
 
 const debug = createDebug('W7E:notes:file:repo');

@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { TasksController } from '../controllers/tasks.controller.js';
 import createDebug from 'debug';
-import { TasksFileRepo } from '../repos/tasks.file.repo.js';
+import { TasksFileRepo } from '../repos/tasks/tasks.file.repo.js';
 
 const debug = createDebug('W7E:tasks:router');
 

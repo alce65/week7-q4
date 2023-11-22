@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { NotesController } from '../controllers/notes.controller.js';
 import createDebug from 'debug';
-import { NotesMongoRepo } from '../repos/notes.mongo.repo.js';
+import { NotesMongoRepo } from '../repos/notes/notes.mongo.repo.js';
 
 const debug = createDebug('W7E:notes:router');
 

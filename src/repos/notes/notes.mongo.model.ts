@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Note } from '../entities/note';
+import { Note } from '../../entities/note';
 
 const notesSchema = new Schema<Note>({
   title: {
@@ -8,8 +8,8 @@ const notesSchema = new Schema<Note>({
     unique: true,
   },
   author: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
   isImportant: {
     type: Boolean,
