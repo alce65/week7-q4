@@ -9,11 +9,15 @@ describe('Given NotesMongoRepo', () => {
     const exec = jest.fn().mockResolvedValue('Test');
     beforeEach(() => {
       NoteModel.find = jest.fn().mockReturnValue({
-        exec,
+        populate: jest.fn().mockReturnValue({
+          exec,
+        }),
       });
 
       NoteModel.findById = jest.fn().mockReturnValue({
-        exec,
+        populate: jest.fn().mockReturnValue({
+          exec,
+        }),
       });
       repo = new NotesMongoRepo();
     });
@@ -35,7 +39,9 @@ describe('Given NotesMongoRepo', () => {
     const exec = jest.fn().mockRejectedValue(new Error('Test'));
     beforeEach(() => {
       NoteModel.findById = jest.fn().mockReturnValue({
-        exec,
+        populate: jest.fn().mockReturnValue({
+          exec,
+        }),
       });
       repo = new NotesMongoRepo();
     });
