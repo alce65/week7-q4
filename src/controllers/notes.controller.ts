@@ -30,7 +30,17 @@ export class NotesController {
     }
   }
 
-  search = (_req: Request, _res: Response) => {};
+  async search(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.search({
+        key: Object.entries(req.query)[0][0] as keyof Note,
+        value: Object.entries(req.query)[0][1],
+      });
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {

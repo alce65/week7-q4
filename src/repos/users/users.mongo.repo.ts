@@ -36,7 +36,8 @@ export class UsersMongoRepo implements Repository<User> {
     return result;
   }
 
-  search({ _key, _value }: { _key: string; _value: unknown }): Promise<User[]> {
+  // eslint-disable-next-line no-unused-vars
+  search({ key, value }: { key: string; value: unknown }): Promise<User[]> {
     throw new Error('Method not implemented.');
   }
 

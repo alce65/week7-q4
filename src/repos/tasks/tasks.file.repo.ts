@@ -31,7 +31,8 @@ export class TasksFileRepo implements Repository<Task> {
     return result;
   }
 
-  search({ _key, _value }: { _key: string; _value: unknown }): Promise<Task[]> {
+  // eslint-disable-next-line no-unused-vars
+  search({ key, value }: { key: string; value: unknown }): Promise<Task[]> {
     // Temp this.tasks.find((item) => item[_key] === _value)
     throw new Error('Method not implemented.');
   }

@@ -33,19 +33,28 @@ export class NotesMongoRepo implements Repository<Note> {
     return result;
   }
 
-  search({ _key, _value }: { _key: string; _value: unknown }): Promise<Note[]> {
-    // Temp this.notes.find((item) => item[_key] === _value)
-    throw new Error('Method not implemented.');
+  async search({
+    key,
+    value,
+  }: {
+    key: keyof Note;
+    value: any;
+  }): Promise<Note[]> {
+    const result = await NoteModel.find({ [key]: value })
+      .populate('author', {
+        notes: 0,
+      })
+      .exec();
+
+    return result;
   }
 
   async create(newItem: Omit<Note, 'id'>): Promise<Note> {
     const userID = newItem.author.id;
-    newItem.author = await this.userRepo.getById(userID);
-    const result: Note = await NoteModel.create(newItem);
-
-    newItem.author.notes.push(result.id as unknown as Note);
-    debug(newItem.author);
-    await this.userRepo.update(userID, newItem.author);
+    const user = await this.userRepo.getById(userID);
+    const result: Note = await NoteModel.create({ ...newItem, author: userID });
+    user.notes.push(result);
+    await this.userRepo.update(userID, user);
     return result;
   }
 
