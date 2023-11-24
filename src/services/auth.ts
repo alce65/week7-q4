@@ -7,7 +7,7 @@ import { HttpError } from '../types/http.error.js';
 const debug = createDebug('W7E:auth');
 
 debug('Imported');
-type TokenPayload = {
+export type TokenPayload = {
   id: User['id'];
   email: string;
 } & jwt.JwtPayload;
@@ -28,9 +28,13 @@ export abstract class Auth {
   }
 
   static verifyAndGetPayload(token: string) {
-    const result = jwt.verify(token, Auth.secret!);
-    if (typeof result === 'string')
-      throw new HttpError(498, 'Invalid token', result);
-    return result as TokenPayload;
+    try {
+      const result = jwt.verify(token, Auth.secret!);
+      if (typeof result === 'string')
+        throw new HttpError(498, 'Invalid token', result);
+      return result as TokenPayload;
+    } catch (error) {
+      throw new HttpError(498, 'Invalid token', (error as Error).message);
+    }
   }
 }

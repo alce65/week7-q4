@@ -1,11 +1,13 @@
 import { NotesMongoRepo } from './notes.mongo.repo';
 import { NoteModel } from './notes.mongo.model.js';
+import { Note } from '../../entities/note';
+import { UsersMongoRepo } from '../users/users.mongo.repo';
 
 jest.mock('./notes.mongo.model.js');
 
 describe('Given NotesMongoRepo', () => {
   let repo: NotesMongoRepo;
-  describe('When we isntantiate it without errors', () => {
+  describe('When we instantiate it without errors', () => {
     const exec = jest.fn().mockResolvedValue('Test');
     beforeEach(() => {
       NoteModel.find = jest.fn().mockReturnValue({
@@ -19,6 +21,8 @@ describe('Given NotesMongoRepo', () => {
           exec,
         }),
       });
+
+      NoteModel.create = jest.fn().mockResolvedValue('Test');
       repo = new NotesMongoRepo();
     });
 
@@ -33,9 +37,24 @@ describe('Given NotesMongoRepo', () => {
       expect(exec).toHaveBeenCalled();
       expect(result).toBe('Test');
     });
+
+    test('Then it should execute search', async () => {
+      const result = await repo.search({ key: 'isImportant', value: true });
+      expect(exec).toHaveBeenCalled();
+      expect(result).toBe('Test');
+    });
+
+    test('Then it should execute create', async () => {
+      UsersMongoRepo.prototype.getById = jest.fn().mockResolvedValue({
+        notes: [],
+      });
+      UsersMongoRepo.prototype.update = jest.fn();
+      const result = await repo.create({ author: {} } as Omit<Note, 'id'>);
+      expect(result).toBe('Test');
+    });
   });
 
-  describe('When we isntantiate it WITH errors', () => {
+  describe('When we instantiate it WITH errors', () => {
     const exec = jest.fn().mockRejectedValue(new Error('Test'));
     beforeEach(() => {
       NoteModel.findById = jest.fn().mockReturnValue({

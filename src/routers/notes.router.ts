@@ -13,7 +13,11 @@ const repo = new NotesMongoRepo();
 const controller = new NotesController(repo);
 const interceptor = new AuthInterceptor();
 
-notesRouter.get('/', controller.getAll.bind(controller));
+notesRouter.get(
+  '/',
+  interceptor.authorization.bind(interceptor),
+  controller.getAll.bind(controller)
+);
 notesRouter.get('/search', controller.search.bind(controller));
 notesRouter.get('/:id', controller.getById.bind(controller));
 notesRouter.post(
@@ -21,5 +25,15 @@ notesRouter.post(
   interceptor.authorization.bind(interceptor),
   controller.create.bind(controller)
 );
-notesRouter.patch('/:id', controller.update.bind(controller));
-notesRouter.delete('/:id', controller.delete.bind(controller));
+notesRouter.patch(
+  '/:id',
+  interceptor.authorization.bind(interceptor),
+  interceptor.authenticationNotes.bind(interceptor),
+  controller.update.bind(controller)
+);
+notesRouter.delete(
+  '/:id',
+  interceptor.authorization.bind(interceptor),
+  interceptor.authenticationNotes.bind(interceptor),
+  controller.delete.bind(controller)
+);

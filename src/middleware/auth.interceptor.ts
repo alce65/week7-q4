@@ -1,7 +1,8 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { HttpError } from '../types/http.error';
-import { Auth } from '../services/auth';
+import { HttpError } from '../types/http.error.js';
+import { Auth } from '../services/auth.js';
+import { NotesMongoRepo } from '../repos/notes/notes.mongo.repo.js';
 const debug = createDebug('W7E:auth:interceptor');
 
 export class AuthInterceptor {
@@ -16,12 +17,26 @@ export class AuthInterceptor {
         throw new HttpError(401, 'Unauthorized');
       const token = tokenHeader.split(' ')[1];
       const tokenPayload = Auth.verifyAndGetPayload(token);
-      req.body.id = tokenPayload.id;
+      req.body.userId = tokenPayload.id;
       next();
     } catch (error) {
       next(error);
     }
   }
 
-  // Authentication;
+  async authenticationNotes(req: Request, res: Response, next: NextFunction) {
+    try {
+      // Eres el usuario
+      const userID = req.body.userId;
+      // Quieres actuar sobre la nota
+      const notesID = req.params.id;
+      const repoNotes = new NotesMongoRepo();
+      const note = await repoNotes.getById(notesID);
+      if (note.author.id !== userID)
+        throw new HttpError(401, 'Unauthorized', 'User not valid');
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
