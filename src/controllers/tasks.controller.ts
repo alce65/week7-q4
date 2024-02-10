@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import { Repository } from '../repos/repo';
 import { Task } from '../entities/task';
-import { Controller } from './controller';
+import { Controller } from './controller.js';
 
 const debug = createDebug('W7E:tasks:controller');
 

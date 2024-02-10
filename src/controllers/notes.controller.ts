@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Repository } from '../repos/repo';
 import { Note } from '../entities/note';
 import createDebug from 'debug';
-import { Controller } from './controller';
+import { Controller } from './controller.js';
 
 const debug = createDebug('W7E:notes:controller');
 
